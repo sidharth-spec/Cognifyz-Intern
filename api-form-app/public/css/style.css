@@ -1,0 +1,36 @@
+body {
+  padding-top: 2rem;
+  background-color: #f8f9fa;
+}
+
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+#status-message {
+  transition: all 0.3s ease;
+}
+
+#loading-spinner {
+  transition: all 0.3s ease;
+}
+
+.btn {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    margin-bottom: 0.5rem;
+  }
+}

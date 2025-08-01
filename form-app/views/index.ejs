@@ -1,0 +1,180 @@
+<%- include('partials/header', { title: title }) %>
+
+<div class="container py-5">
+  <div class="row justify-content-center animate-fade-in">
+    <div class="col-lg-8">
+      <% if (message) { %>
+      <div
+        class="alert alert-<%= message.type === 'error' ? 'danger' : 'success' %> animate-fade-in"
+      >
+        <i
+          class="bi <%= message.type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill' %> me-2"
+        ></i>
+        <%= message.text %>
+      </div>
+      <% } %>
+
+      <div class="card">
+        <div class="card-header text-center">
+          <h2 class="mb-0">
+            <i class="bi bi-person-plus me-2"></i>Create Your Account
+          </h2>
+          <p class="mb-0 opacity-75">Join our community today</p>
+        </div>
+
+        <div class="card-body p-4">
+          <form id="registrationForm" action="/submit" method="POST">
+            <!-- Username Field -->
+            <div class="form-floating mb-4">
+              <input
+                type="text"
+                class="form-control <%= errors && errors.some(e => e.path === 'username') ? 'is-invalid' : '' %>"
+                id="username"
+                name="username"
+                placeholder="Username"
+                value="<%= formData ? formData.username : '' %>"
+                required
+              />
+              <label for="username">Username</label>
+              <div class="invalid-feedback">
+                <%= errors && errors.find(e => e.path === 'username')?.msg %>
+              </div>
+              <small class="form-text text-muted">At least 3 characters</small>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-floating mb-4">
+              <input
+                type="email"
+                class="form-control <%= errors && errors.some(e => e.path === 'email') ? 'is-invalid' : '' %>"
+                id="email"
+                name="email"
+                placeholder="Email"
+                value="<%= formData ? formData.email : '' %>"
+                required
+              />
+              <label for="email">Email address</label>
+              <div class="invalid-feedback">
+                <%= errors && errors.find(e => e.path === 'email')?.msg %>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control <%= errors && errors.some(e => e.path === 'password') ? 'is-invalid' : '' %>"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <label for="password">Password</label>
+              <div class="invalid-feedback">
+                <%= errors && errors.find(e => e.path === 'password')?.msg %>
+              </div>
+            </div>
+
+            <!-- Password Strength Meter -->
+            <div class="mb-4 px-2">
+              <div id="password-strength"></div>
+              <small class="form-text text-muted">
+                Must contain uppercase, lowercase, number, and special character
+              </small>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-floating mb-4">
+              <input
+                type="password"
+                class="form-control <%= errors && errors.some(e => e.path === 'confirmPassword') ? 'is-invalid' : '' %>"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                required
+              />
+              <label for="confirmPassword">Confirm Password</label>
+              <div class="invalid-feedback">
+                <%= errors && errors.find(e => e.path ===
+                'confirmPassword')?.msg %>
+              </div>
+            </div>
+
+            <!-- Profile Picture -->
+            <div class="mb-4">
+              <label for="avatar" class="form-label">
+                Profile Picture <small class="text-muted">(Optional)</small>
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="avatar"
+                name="avatar"
+                accept="image/*"
+              />
+            </div>
+
+            <!-- Terms Checkbox -->
+            <div class="form-check mb-4">
+              <input
+                class="form-check-input <%= errors && errors.some(e => e.path === 'terms') ? 'is-invalid' : '' %>"
+                type="checkbox"
+                id="terms"
+                name="terms"
+                required
+              />
+              <label class="form-check-label" for="terms">
+                I agree to the
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"
+                  >Terms and Conditions</a
+                >
+              </label>
+              <div class="invalid-feedback">
+                <%= errors && errors.find(e => e.path === 'terms')?.msg %>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-send-fill me-2"></i>Create Account
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer text-center">
+          <p class="mb-0">Already have an account? <a href="#">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Terms and Conditions</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Terms content here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">I Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,122 @@
+<%- include('partials/header', { title : title }) %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <% if (message) { %>
+    <div
+      class="alert alert-<%= message.type === 'error' ? 'danger' : 'success' %> mb-4"
+    >
+      <%= message.text %>
+    </div>
+    <% } %>
+
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Registration Form</h2>
+      </div>
+      <div class="card-body">
+        <form action="/submit" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control <%= errors && errors.some(e => e.path === 'name') ? 'is-invalid' : '' %>"
+              id="name"
+              name="name"
+              value="<%= formData ? formData.name : '' %>"
+              required
+            />
+            <% if (errors) { %> <% const nameError = errors.find(e => e.path ===
+            'name') %> <% if (nameError) { %>
+            <div class="invalid-feedback"><%= nameError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control <%= errors && errors.some(e => e.path === 'email') ? 'is-invalid' : '' %>"
+              id="email"
+              name="email"
+              value="<%= formData ? formData.email : '' %>"
+              required
+            />
+            <% if (errors) { %> <% const emailError = errors.find(e => e.path
+            === 'email') %> <% if (emailError) { %>
+            <div class="invalid-feedback"><%= emailError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control <%= errors && errors.some(e => e.path === 'password') ? 'is-invalid' : '' %>"
+              id="password"
+              name="password"
+              required
+            />
+            <% if (errors) { %> <% const passwordError = errors.find(e => e.path
+            === 'password') %> <% if (passwordError) { %>
+            <div class="invalid-feedback"><%= passwordError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control <%= errors && errors.some(e => e.path === 'confirmPassword') ? 'is-invalid' : '' %>"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
+            <% if (errors) { %> <% const confirmError = errors.find(e => e.path
+            === 'confirmPassword') %> <% if (confirmError) { %>
+            <div class="invalid-feedback"><%= confirmError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input
+              type="number"
+              class="form-control <%= errors && errors.some(e => e.path === 'age') ? 'is-invalid' : '' %>"
+              id="age"
+              name="age"
+              min="18"
+              max="100"
+              value="<%= formData ? formData.age : '' %>"
+              required
+            />
+            <% if (errors) { %> <% const ageError = errors.find(e => e.path ===
+            'age') %> <% if (ageError) { %>
+            <div class="invalid-feedback"><%= ageError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input <%= errors &&
+            errors.some(e => e.path === 'terms') ? 'is-invalid' : '' %>"
+            id="terms" name="terms" <%= formData && formData.terms ? 'checked' :
+            '' %> required>
+            <label class="form-check-label" for="terms"
+              >I agree to the terms and conditions</label
+            >
+            <% if (errors) { %> <% const termsError = errors.find(e => e.path
+            === 'terms') %> <% if (termsError) { %>
+            <div class="invalid-feedback"><%= termsError.msg %></div>
+            <% } %> <% } %>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
